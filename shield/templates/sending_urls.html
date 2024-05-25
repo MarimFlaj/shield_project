@@ -1,0 +1,281 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %} Urls {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<!-- Button trigger modal -->
+
+<div class="content-body">
+	<div class="container-fluid" style="text-align: right;">
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            {% trans 'Send Url' %}
+        </button>
+          
+          <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Send Url</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" >
+                <form id="SaveNew" method="post" enctype="multipart/form-data" >
+                    {% csrf_token %}
+                    <div class="mb-3 row" >
+                        <label class="col-sm-3 col-form-label" style="color:black !important">{% trans 'Send To' %}</label>
+                        <div class="col-sm-9" >
+                            <div class="form-check form-check-inline" >
+                                <input  type="radio" name="send_to" id="inlineRadio1" value="department" checked>
+                                <label class="form-check-label" for="inlineRadio1" style="color:black !important">department</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input  type="radio" name="send_to" id="inlineRadio2" value="user">
+                                <label class="form-check-label" for="inlineRadio2" style="color:black !important">user</label>
+                              </div>
+                              <div class="form-check form-check-inline">
+                                <input  type="radio" name="send_to" id="inlineRadio2" value="all_users">
+                                <label class="form-check-label" for="inlineRadio2" style="color:black !important">All users</label>
+                              </div>
+                            </div>
+                    </div>
+                    
+                      
+                    <div class="mb-3 row" id="departmentDiv" >
+                        <label class="col-sm-3 col-form-label" style="color:black !important">{% trans 'Department' %}</label>
+                        <div class="col-sm-9" >
+                            {{form.Department}}
+
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row" id="userDiv" style="display:none">
+                        <label class="col-sm-3 col-form-label" style="color:black !important">{% trans 'User' %}</label>
+                        <div class="col-sm-9" >
+                            {{form.U_ID}}
+
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3 row" >
+                        <label class="col-sm-3 col-form-label" style="color:black !important">{% trans 'Url' %}</label>
+                        <div class="col-sm-9" >
+                            {{form.URL_ID}}
+
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label" style="color:black !important">{% trans 'Email Text' %}</label>
+
+                        <div class="col-sm-9" >
+                            <textarea name="email_text" id="id_email_text" rows="4" class="form-control"
+                            style="border-radius: 9px;border: 1.5px solid #2F3270 !important;color: #2F3270;"
+                            ></textarea>
+                        </div>
+                    </div>
+                    
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalClose">Close</button>
+                <button type="button" id="saveUrl" class="btn btn-primary">{% trans 'Send' %}</button>
+
+            </div>
+            </div>
+        </div>
+        </div>
+					
+		</div>
+
+        <div class="row"> 
+            <div class="col-12">
+                <div class="card">
+                    
+                    <div class="card-body">
+                        <div class="filter cm-content-box box-primary border">
+                            
+                            <div class="cm-content-body form excerpt border-top" >
+                                <div class="card-body ItemsCheckboxSec p-sm-4">
+                                    <table class="table example2datatable1" id="example4_wrapper">
+                                        <thead>
+                                            <tr>
+                                                
+                                                
+                                                <th style="text-align:center !important">
+                                                    {% trans 'Url ' %}
+                                                </th>
+                                                <th>
+                                                    {% trans 'Send To Methd' %}
+                                                </th>
+                                               
+                                                <th>
+                                                    {% trans 'Receiver' %}
+                                                </th>
+                                                
+                                                <th>
+                                                    {% trans 'Sending Time' %}
+                                                </th>
+                                                
+                                            
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                            
+                                    </table >
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+	</div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="{% static 'assets/js/sweetalert2.all.min.js' %}"></script>
+
+<script>
+    function alert_message(msg="",icon="success",timer=3000){
+        Swal.fire({
+            position:'center',
+            showConfirmButton:false,
+            icon:icon,
+            title:msg,
+            timer: timer,
+        })
+      }
+    
+    $(document).ready(function () {
+
+        setTimeout(function () {
+            table = $('.example2datatable1').DataTable({
+                "paging": true,
+                "processing": true,
+                "serverSide": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "ajax": "{% url 'shield:SendingURlsJson' %}",
+
+                "autoWidth": false,
+                "responsive": false,
+                language: {
+                    paginate: {
+                        next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+                    previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>' 
+                    }
+                },
+                {% comment %} order: [
+                [2, 'desc'], // Sort the third column (index 2) in descending order
+                // You can add more columns and sorting directions as needed
+                ] {% endcomment %}
+            });
+            
+        
+            $("#example4_wrapper_filter").css('text-align', 'center');
+            
+        },1);
+        setTimeout(function () {
+            $(".sorting_asc").css('text-align', 'center');
+        },500);
+        
+        
+        $(document).on("click", "#saveUrl", function () {
+            var formData = new FormData($("#SaveNew")[0]);
+            formData.append('save_new', true);
+            var form = $("#SaveNew")
+            $.ajax({
+                method: "post",
+                contentType: false,
+                processData: false,
+                data: formData,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(
+                    "X-CSRFToken",
+                    $("input[name=csrfmiddlewaretoken]").val()
+                    );
+                },
+            
+                success: function (data) {
+                    if (data.status == "1") {
+                        $("#modalClose").trigger('click');
+                        alert_message(data.msg);
+                        table.ajax.reload()
+                        
+                        form.find('.error').text('').hide();
+            
+                        form.find('.error-message').remove();
+                        
+                        
+                    } 
+                    
+                    else if (data.status == "2") {
+                    alert_message(data.msg, "error");
+                    } 
+                    else {
+                        form.find('.error').text('').hide();
+            
+                        // Display form errors under each field dynamically
+                        form.find('.error-message').remove();  // Remove existing error messages
+                        $.each(data.errors, function (field, error) {
+                        
+                        var fieldName= $('[name="' + field + '"]');
+                        var errorMessage = $('<div class="error-message" style="color: red;">' + error + '</div>');
+                        fieldName.after(errorMessage);
+                        fieldName.focus();
+                        });
+                    
+                    }   
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                },
+            });
+        });
+
+        $('input[name="send_to"]').change(function() {
+            var selectedValue = $(this).val();
+            // إذا تم اختيار "department"، أظهر الحقل المتصل به وأخفي الآخر
+            if (selectedValue === "department") {
+                $('#departmentDiv').show();
+                $('#userDiv').hide();
+                $("#id_U_ID").val("")
+            }
+            // إذا تم اختيار "user"، أظهر الحقل المتصل به وأخفي الآخر
+            else if (selectedValue === "user") {
+                $('#departmentDiv').hide();
+                $('#userDiv').show();
+                $("#id_Department").val("")
+            }
+            else if (selectedValue === "all_users") {
+                $('#departmentDiv').hide();
+                $('#userDiv').hide();
+                $("#id_U_ID").val("")
+                $("#id_Department").val("")
+            }
+        });
+
+
+    });
+    
+
+</script>
+
+{% endblock javascripts %}

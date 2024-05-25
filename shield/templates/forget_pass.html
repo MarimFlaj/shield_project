@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    {% load i18n %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="/static/assets/css/style2.css" rel="stylesheet" />
+
+    <title>Forget Password Page</title>
+</head>
+
+<body>
+    <div class="container" id="container">
+        
+        <div class="form-container sign-in">
+            <form id="ForgetForm" method="post">
+                {% csrf_token %}
+
+                <h1>Forget Password</h1>
+                
+                <br>
+                <input type="email" placeholder="Info@example.com" class="with-border" name="email">
+
+                <button type="button" class="bg-blue-600 font-semibold p-3 rounded-md text-center text-white w-full"  style="cursor: pointer;background-color:#20013E !important;border-radius: 50px;width:150px" id="forgetBtn">{% trans 'Send' %}</button>
+               
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                
+                <div class="toggle-panel toggle-right">
+                    <img src="{% static 'assets/white.png' %}" alt="" style="width:150px;">
+                    <br>
+                    <p style=" font-family: 'Jacques Franconis';font-size:25px !important">Enter your email and we will send to you new password</p>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div> 
+   
+         
+    <!-- Javascript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+    <script type="text/javascript" src="{% static 'assets/js/tippy.all.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/uikit.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/simplebar.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/custom.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+    <script src="{% static 'assets/js/sweetalert2.all.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/sweetalert2.min.css' %}">
+    
+
+    
+    <script>
+        function alert_message(msg="",icon="success",timer=3000){
+            Swal.fire({
+                position:'center',
+                showConfirmButton:false,
+                icon:icon,
+                title:msg,
+                timer: timer,
+            })
+        }
+
+        $(document).on('click', '#forgetBtn', function () {
+        
+           var formData = new FormData($("#ForgetForm")[0]);
+           
+           $.ajax({
+               method: 'post',
+               contentType: false,
+               processData: false,
+               data: formData,
+               beforeSend: function (xhr) {
+                   xhr.setRequestHeader("X-CSRFToken", $('input[name=csrfmiddlewaretoken]').val());
+               },
+               
+               success: function (data) {
+               if (data.status == "1") {
+                alert_message(data.msg)
+                  
+               } 
+               else {
+                alert_message(data.msg,'warning')
+                
+               }
+                   
+               },
+               error: function (xhr, status, error) {
+                   console.error(error);
+               },
+           });
+        });
+
+
+   </script>
+     
+ 
+   
+   <!-- Specific Page JS goes HERE  -->
+   {% block javascripts %}
+   <script src="{% static 'datatable/js/jquery.dataTables.min.js' %}" ></script>
+     
+ 
+ 
+   {% endblock javascripts %}
+   
+ </body>
+ </html>
+ 

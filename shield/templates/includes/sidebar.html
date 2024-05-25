@@ -1,0 +1,83 @@
+    <div class="sidebar" style="color: white;background-color: #120632;  z-index: 1002;" >
+      <div class="logo" style="text-align:center">
+           
+          <img src="static/assets/white.png" class="is_avatar" alt="" style="height:30px">
+          <h4 style="display: inline;">KSA Shield</h4>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+        {% if request.user.is_authenticated %}
+        <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+          <a class="nav-link" href="{% url 'shield:SystemOverView' %}" style="color: #fff !important;font-size:18px !important" >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-columns-gap" viewBox="0 0 16 16">
+              <path d="M6 1v3H1V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm14 12v3h-5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1zM6 8v7H1V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1zm14-6v7h-5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z"/>
+              
+            </svg>  
+            <span style="padding-left: 8px;"> System Overview</span>
+          </a>
+        </li>
+        <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+          <a class="nav-link" href="{% url 'shield:Departments' %}" style="color: #fff !important;font-size:18px !important">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-1x2-fill" viewBox="0 0 16 16">
+              <path d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1z"/>
+            </svg>            <span style="padding-left: 8px;" >Departments</span>
+          </a>
+        </li>
+        <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+          <a class="nav-link" href="{% url 'shield:users' %}" style="color: #fff !important;font-size:18px !important">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+              <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+            </svg>
+            <span  style="padding-left: 8px;">Users</span>
+          </a>
+        </li>
+          
+
+          
+          <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+            <a class="nav-link" href="{% url 'shield:TrainingPackage' %}" style="color: #fff !important;font-size:18px !important">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-collection-fill" viewBox="0 0 16 16">
+                <path d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3m2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1"/>
+              </svg>
+              <span  style="padding-left: 8px;">Training Packages</span>
+            </a>
+          </li>
+          <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+            <a class="nav-link" href="{% url 'shield:ReportView' %}" style="color: #fff !important;font-size:18px !important">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard-data-fill" viewBox="0 0 16 16">
+                <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z"/>
+                <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zM10 8a1 1 0 1 1 2 0v5a1 1 0 1 1-2 0zm-6 4a1 1 0 1 1 2 0v1a1 1 0 1 1-2 0zm4-3a1 1 0 0 1 1 1v3a1 1 0 1 1-2 0v-3a1 1 0 0 1 1-1"/>
+              </svg>
+              <span  style="padding-left: 8px;">Report History</span>
+
+            </a>
+          </li>
+          <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+            <a class="nav-link" href="{% url 'shield:urls' %}" style="color: #fff !important;font-size:18px !important">
+              <i class="material-icons"  style="color:#fff">language</i>
+
+              <span  style="padding-left: 0px;">Urls</span>
+            </a>
+          </li>
+          {% comment %} <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+            <a class="nav-link" href="{% url 'shield:SendingURls' %}">
+              <i class="fa fa-link"></i>
+              <p style="color: #fff;">Sending Urls</p>
+            </a>
+          </li>
+          <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+            <a class="nav-link" href="{% url 'shield:SendingTraining' %}">
+              <i class="fa fa-send-o"></i>
+              <p style="color: #fff;">Sending TrainingPackage</p>
+            </a>
+          </li> {% endcomment %}
+          
+
+        {% else %}
+
+          
+        {% endif %}
+        </ul> 
+      </div>
+
+    </div>

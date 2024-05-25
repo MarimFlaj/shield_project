@@ -1,0 +1,216 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block title %} Urls {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<!-- Button trigger modal -->
+
+<div class="content-body">
+	<div class="container-fluid">
+		
+
+        <div class="row"> 
+            <div class="col-12">
+                <div class="card">
+                    
+                    <div class="card-body">
+                        <div class="filter cm-content-box box-primary border">
+                            
+                            <div class="cm-content-body form excerpt border-top" >
+                                <div class="card-body ItemsCheckboxSec p-sm-4">
+                                    <table class="table example2datatable1" id="example4_wrapper">
+                                        <thead>
+                                            <tr>
+                                                
+                                                
+                                                <th>
+                                                    {% trans 'Username' %}
+                                                </th>
+                                                <th>
+                                                    {% trans 'Email' %}
+                                                </th>
+                                                <th>
+                                                    {% trans 'Department' %}
+                                                </th>
+                                                <th>
+                                                    {% trans 'Gander' %}
+                                                </th>
+                                                <th>
+                                                    {% trans 'Phishing Awareness' %}
+                                                </th>
+                                                
+                                            
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            
+                                        </tbody>
+                                            
+                                    </table >
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+	</div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="{% static 'assets/js/sweetalert2.all.min.js' %}"></script>
+
+<script>
+    function alert_message(msg="",icon="success",timer=3000){
+        Swal.fire({
+            position:'center',
+            showConfirmButton:false,
+            icon:icon,
+            title:msg,
+            timer: timer,
+        })
+      }
+    
+    $(document).ready(function () {
+
+        setTimeout(function () {
+            table = $('.example2datatable1').DataTable({
+                "paging": true,
+                "processing": true,
+                "serverSide": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "ajax": "{% url 'shield:usersjson' %}",
+
+                "autoWidth": false,
+                "responsive": false,
+                language: {
+                    paginate: {
+                        next: '<i class="fa fa-angle-double-right" aria-hidden="true"></i>',
+                    previous: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>' 
+                    }
+                },
+                {% comment %} order: [
+                [2, 'desc'], // Sort the third column (index 2) in descending order
+                // You can add more columns and sorting directions as needed
+                ] {% endcomment %}
+            });
+            
+        
+            $("#example4_wrapper_filter").css('text-align', 'center');
+            
+        },1);
+        setTimeout(function () {
+            $(".sorting_asc").css('text-align', 'center');
+        },500);
+        
+        $(document).on("click", "#saveUrl", function () {
+            var formData = new FormData($("#SaveNew")[0]);
+            formData.append('save_new', true);
+            var form = $("#SaveNew")
+            $.ajax({
+                method: "post",
+                contentType: false,
+                processData: false,
+                data: formData,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(
+                    "X-CSRFToken",
+                    $("input[name=csrfmiddlewaretoken]").val()
+                    );
+                },
+            
+                success: function (data) {
+                    if (data.status == "1") {
+                        $("#modalClose").trigger('click');
+                        alert_message(data.msg);
+                        table.ajax.reload()
+                        setTimeout(function() {
+                        }, 1500);
+                        form.find('.error').text('').hide();
+            
+                        form.find('.error-message').remove();
+                        
+                    } 
+                    
+                    else if (data.status == "2") {
+                    alert_message(data.msg, "error");
+                    } 
+                    else {
+                        form.find('.error').text('').hide();
+            
+                        // Display form errors under each field dynamically
+                        form.find('.error-message').remove();  // Remove existing error messages
+                        $.each(data.errors, function (field, error) {
+                        
+                        var fieldName= $('[name="' + field + '"]');
+                        var errorMessage = $('<div class="error-message" style="color: red;">' + error + '</div>');
+                        fieldName.after(errorMessage);
+                        fieldName.focus();
+                        });
+                    
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                },
+            });
+        });
+
+    });
+    function deleteContact(groupID){
+        id = groupID;
+        msg="Are You Sure Want to Delete ?"
+        title="This portation can not be undo!!"
+        cancelDelete=$("#confirmCancel").html()
+        Swal.fire({
+            title: msg,
+            text: title,
+            icon: 'warning',        
+            confirmButtonColor: '#2E165B' ,
+            cancelButtonColor: '#BDBDBD',
+            cancelButtonText: 'No',
+            confirmButtonText: 'Yes',
+            showCloseButton: true,
+            showCancelButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method:"DELETE",
+                    data:{'id':id,'delete':'true'},
+                    beforeSend:function(xhr){
+                        xhr.setRequestHeader("X-CSRFToken",$('input[name=csrfmiddlewaretoken]').val());
+                    },
+                    success:function(data){
+                        alert_message(data.msg,'warning')
+                        $("#modalClose").trigger('click');
+
+                        table.ajax.reload()
+                        
+                    },
+                    error:function(){
+            
+                    }
+                })
+            }
+            else{
+                
+            }
+        })
+        
+    }
+</script>
+
+{% endblock javascripts %}

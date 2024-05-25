@@ -1,0 +1,459 @@
+<!--
+=========================================================
+ Material Dashboard - v2.1.2
+=========================================================
+
+ Product Page: https://www.creative-tim.com/product/material-dashboard
+ Copyright 2019 Creative Tim (https://www.creative-tim.com)
+ Licensed under MIT (https://github.com/creativetimofficial/material-dashboard/blob/master/LICENSE.md)
+
+ Coded by Creative Tim
+
+=========================================================
+
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ 
+ <head>
+ 
+   <meta charset="utf-8" />
+   <link rel="apple-touch-icon" sizes="76x76" href="/static/assets/img/apple-icon.png">
+   <link rel="icon" type="image/png" href="/static/assets/img/favicon.png">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+   <link rel="canonical" href="https://appseed.us/admin-dashboards/django-dashboard-material">
+ 
+   <title>
+     Django Material Dashboard - {% block title %}{% endblock %} | AppSeed
+   </title>
+   {% load static %}
+   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+   <!--     Fonts and icons     -->
+   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+   <!-- CSS Files -->
+   <link href="/static/assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+   <!-- CSS Just for demo purpose, don't include it in your project -->
+   <link href="/static/assets/demo/demo.css" rel="stylesheet" />
+ 
+   <link rel="stylesheet" type="text/css" href="{% static 'assets/datatable/css/jquery.dataTables.min.css' %}">
+   <style>
+     a {
+         cursor: pointer;
+     }
+ </style>
+ 
+   <!-- Specific Page CSS goes HERE  -->
+   {% block stylesheets %}{% endblock stylesheets %}
+ 
+ </head>
+ 
+ <body class="">
+   
+            <div class="container-fluid">
+
+        {% block content %}
+        <div class="row">
+
+        <div class="col-lg-6 col-md-6" 
+            style="background-color:#20013E !important; 
+                text-align: center; 
+                min-height: 100vh; height: auto;
+                color:#fff;
+                {% comment %} border-top-right-radius: 100px; {% endcomment %}
+                {% comment %} border-bottom-right-radius: 100px; {% endcomment %}
+                "
+            >
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+
+                <img src="{% static 'assets/white.png' %}" alt="" style="width:300px;">
+                <p class="font-medium lg:mx-0 md:text-2xl mt-6 mx-auto sm:w-3/4 text-xl" style=" font-family: 'Jacques Franconis';font-size:55px !important">
+                    welcome to shaild
+                    </p>
+        </div>
+        
+            <div class="col-lg-6 col-md-6" style="background-color:#fff !important;text-align:center">
+                <br />
+                
+                <div >
+                    <div >
+                      <h3 style="color:#310F57; font-weight: bold;font-family: 'Jacques Franconis';font-size:40px !important">
+                        SIGN UP
+                      </h3>
+                    </div>
+                    
+                  </div>
+                <form  method="post" id="registerForm">
+                    {% csrf_token %}
+                    <div id="error_div" style="color:red"> </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+
+                            <input type="text" placeholder="First Name" class="with-border" name="f_name" style="
+                                width: 50%;
+                                border-radius: 9px;
+                                height: 40px;
+                                border-right: 5px solid #2F3270 !important;
+                                border: 1.5px solid #2F3270 !important;
+                                color: #2F3270;
+
+
+                            ">
+                          </div>
+                        </div>
+                    </div>
+                    <!--  <div class="row">
+                       <div class="col-md-12">
+                          <div class="form-group">
+                            <input type="text" placeholder="Middle Name" class="with-border" name="m_name" style="
+                            width: 50%;
+                            border-radius: 9px;
+                            height: 40px;
+                            border-right: 5px solid #2F3270 !important;
+                            border: 1.5px solid #2F3270 !important;
+                            color: #2F3270;
+                        ">
+                          </div>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+
+                            <input type="text" placeholder="Last Name" class="with-border" name="l_name" style="
+                            width: 50%;
+                            border-radius: 9px;
+                            height: 40px;
+                            border-right: 5px solid #2F3270 !important;
+                            border: 1.5px solid #2F3270 !important;
+                            color: #2F3270;
+                        ">
+                          </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+
+                            <input type="text" placeholder="Username" class="with-border" name="username" style="
+                            width: 50%;
+                            border-radius: 9px;
+                            height: 40px;
+                            border-right: 5px solid #2F3270 !important;
+                            border: 1.5px solid #2F3270 !important;
+                            color: #2F3270;
+                        ">
+                          </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+
+                            <input type="email" placeholder="Info@example.com" class="with-border" name="email" style="
+                            width: 50%;
+                            border-radius: 9px;
+                            height: 40px;
+                            border-right: 5px solid #2F3270 !important;
+                            border: 1.5px solid #2F3270 !important;
+                            color: #2F3270;
+                        ">
+                          </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group" style=" text-align:center !important;">
+                            <select class="" name="gander" style="
+                            width: 50%;
+                            border-radius: 9px;
+                            height: 40px;
+                            border-right: 5px solid #2F3270 !important;
+                            border: 1.5px solid #2F3270 !important;
+                            {% comment %} text-align:center !important; {% endcomment %}
+                            color: #2F3270;
+                        ">
+                                <option selected>Choose gander...</option>
+                                <option value="male">male</option>
+                                <option value="female">female</option>
+                            </select>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group" style=" text-align:center !important;">
+                            {{form.Department}}
+                          </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+
+                            <input type="password" placeholder="Password" class="with-border" name="password" style="
+                            width: 50%;
+                            border-radius: 9px;
+                            height: 40px;
+                            border-right: 5px solid #2F3270 !important;
+                            border: 1.5px solid #2F3270 !important;
+                            {% comment %} color: #2F3270; {% endcomment %}
+                        ">
+                          </div>
+                          </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+
+                            <input type="password" placeholder="Confirm Password" class="with-border" name="retype_password" style="
+                            width: 50%;
+                            border-radius: 9px;
+                            height: 40px;
+                            border-right: 5px solid #2F3270 !important;
+                            border: 1.5px solid #2F3270 !important;
+                            {% comment %} color: #2F3270; {% endcomment %}
+                        ">
+                          </div>
+                        </div>
+                        
+                    </div>
+                    <br />
+                    
+                    
+                    <a type="button" class="bg-blue-600 font-semibold p-3 rounded-md text-center text-white w-full" id="registerBtn" style="cursor: pointer;background-color:#20013E !important;border-radius: 50px;width:150px">
+                        Sign up
+                    </a>
+                    {% comment %} <a href="#" class="text-blue-500 text-center block"> Forgot Password? </a> {% endcomment %}
+                   
+                    &nbsp; &nbsp; 
+                    <br />
+                    <br />
+
+                    <span style="color:black; font-weight: bold;font-family: 'Inder';font-size:20px;margin-left:-5rem">
+                        Already have an account ? <a href="/login" class="text-primary" style="color:#6F4AA0 !important">Login</a>
+                    </span>
+                    {% comment %} <div class="flex">
+                        <a href="#register" type="button" class="bg-green-600 hover:bg-green-500 hover:text-white font-semibold py-3 px-5 rounded-md text-center text-white mx-auto" uk-toggle style="cursor: pointer;background-color:#20013E !important;border-radius: 25px;">
+                            Create New Account
+                        </a>
+                    </div> {% endcomment %}
+                </form>
+
+            </div>
+            
+        </div>
+
+    <!-- This is the modal -->
+    {% comment %} <div id="register" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body rounded-xl shadow-2xl p-0 lg:w-5/12">
+            <button class="uk-modal-close-default p-3 bg-gray-100 rounded-full m-3" type="button" uk-close></button>
+            <div class="border-b px-7 py-5">
+                <div class="lg:text-2xl text-xl font-semibold mb-1"> Sign Up</div>
+                <div class="text-base text-gray-600"> welcome to shaild.</div>
+            </div>
+            <form class="p-7 space-y-5" method="post" id="registerForm">
+                {% csrf_token %}
+                <div class="grid lg:grid-cols-2 gap-5">
+                </div>
+                
+                <div class="grid lg:grid-cols-2 gap-5">
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-5">
+                    
+                </div>
+                <div class="grid lg:grid-cols-2 gap-5">
+                    
+                </div>
+                
+                
+                
+
+                <p class="text-xs text-gray-400 pt-3">By clicking Sign Up, you agree to our
+                    <a href="#" class="text-blue-500">Terms</a>,
+                    <a href="#">Data Policy</a> and
+                    <a href="#">Cookies Policy</a>. You may receive SMS Notifications from us and can opt out any time.
+                </p>
+                <div class="flex">
+                    <a type="button" class="bg-blue-600 font-semibold mx-auto px-10 py-3 rounded-md text-center text-white" id="registerBtn">
+                        Get Started
+                    </a>
+                </div>
+            </form>
+
+        </div>
+    </div> {% endcomment %}
+
+    <!-- For Night mode -->
+<script src="{% static 'assets/js/sweetalert2.all.min.js' %}"></script>
+
+    <script>
+        (function(window, document, undefined) {
+            'use strict';
+            if (!('localStorage' in window)) return;
+            var nightMode = localStorage.getItem('gmtNightMode');
+            if (nightMode) {
+                document.documentElement.className += ' night-mode';
+            }
+        })(window, document);
+
+        (function(window, document, undefined) {
+
+            'use strict';
+
+            // Feature test
+            if (!('localStorage' in window)) return;
+
+            // Get our newly insert toggle
+            var nightMode = document.querySelector('#night-mode');
+            if (!nightMode) return;
+
+            // When clicked, toggle night mode on or off
+            nightMode.addEventListener('click', function(event) {
+                event.preventDefault();
+                document.documentElement.classList.toggle('dark');
+                if (document.documentElement.classList.contains('dark')) {
+                    localStorage.setItem('gmtNightMode', true);
+                    return;
+                }
+                localStorage.removeItem('gmtNightMode');
+            }, false);
+
+        })(window, document);
+    </script>
+
+    <!-- Javascript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+    <script type="text/javascript" src="{% static 'assets/js/tippy.all.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/uikit.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/simplebar.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/custom.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+    
+
+    {% comment %} <script src="{% static 'assets/js/sweetalert2.all.min.js' %}"></script> {% endcomment %}
+    
+    <script>
+        function alert_message(msg="",icon="success",timer=3000){
+            Swal.fire({
+                position:'center',
+                showConfirmButton:false,
+                icon:icon,
+                title:msg,
+                timer: timer,
+            })
+        }
+
+        $(document).on('click', '#loginBtn', function () {
+        
+           $("#error_div").html('')
+           $("#parent_div").hide()
+           var formData = new FormData($("#loginForm")[0]);
+           formData.append('login', true);
+           
+           $.ajax({
+               method: 'post',
+               contentType: false,
+               processData: false,
+               data: formData,
+               beforeSend: function (xhr) {
+                   xhr.setRequestHeader("X-CSRFToken", $('input[name=csrfmiddlewaretoken]').val());
+               },
+               
+               success: function (data) {
+               if (data.status == "1") {
+                  window.location.href = '/';
+                  $("#userAndPass").hide()
+                  $("#logIn").hide()
+                  $("#otpDiv").show()
+                  $("#continueLogin").show()
+               } 
+               else {
+                
+                   $("#error_div").html(data.message)
+                   $("#parent_div").show()
+               }
+                   
+               },
+               error: function (xhr, status, error) {
+                   console.error(error);
+               },
+           });
+        });
+
+        $(document).on('click', '#registerBtn', function () {
+        
+           
+           var formData = new FormData($("#registerForm")[0]);
+           form = $("#registerForm");
+           formData.append('register', true);
+           
+           $.ajax({
+               method: 'post',
+               contentType: false,
+               processData: false,
+               data: formData,
+               beforeSend: function (xhr) {
+                   xhr.setRequestHeader("X-CSRFToken", $('input[name=csrfmiddlewaretoken]').val());
+               },
+               
+               success: function (data) {
+               if (data.status == "1") {
+                window.location.href = '/login';
+                  
+
+               } 
+               else {
+                
+                form.find('.error').text('').hide();
+
+                // Display form errors under each field dynamically
+                form.find('.error-message').remove();  // Remove existing error messages
+                $.each(data.errors, function (field, error) {
+                    fieldName = $('form[id="registerForm"] [name="' + field + '"]');
+                    var errorMessage = $('<div class="error-message" style="color: red;">' + error + '</div>');
+                    fieldName.after(errorMessage);
+                    fieldName.focus();
+                });
+               }
+                   
+               },
+               error: function (xhr, status, error) {
+                   console.error(error);
+               },
+           });
+       });
+   </script>
+    
+          {% endblock content %}
+ 
+ 
+   {% include 'includes/fixed-plugin.html' %}
+ 
+   {% include 'includes/scripts.html' %}
+ 
+   {% include 'includes/scripts-sidebar.html' %}
+   
+   <!-- Specific Page JS goes HERE  -->
+   {% block javascripts %}
+   <script src="{% static 'datatable/js/jquery.dataTables.min.js' %}" ></script>
+     
+ 
+ 
+   {% endblock javascripts %}
+   
+ </body>
+ </html>
+ 

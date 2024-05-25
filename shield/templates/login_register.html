@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    {% load i18n %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="/static/assets/css/style2.css" rel="stylesheet" />
+
+    <title>Login Page</title>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form  method="post" id="registerForm">
+                {% csrf_token %}
+                <div id="error_div" style="color:red"> </div>
+               
+
+                        <input type="text" placeholder="First Name" class="with-border" name="f_name"> 
+                       <!--  <input type="text" placeholder="Middle Name" class="with-border" name="m_name"> -->
+
+                        <input type="text" placeholder="Last Name" class="with-border" name="l_name">
+
+                        <input type="text" placeholder="Username" class="with-border" name="username">
+
+                        <input type="email" placeholder="Info@example.com" class="with-border" name="email">
+                      <div  style=" text-align:center !important;width: 100%;">
+                        <select class="" name="gander" style="
+                        {% comment %} width: 50%; {% endcomment %}
+                        border-radius: 9px;
+                        height: 40px;
+                        width:100%;
+                        border-right: 0px;
+                        border: 0px;
+                        {% comment %} text-align:center !important; {% endcomment %}
+                        color: gray;
+                        margin: 8px 0;
+                        padding: 10px 15px;
+                        background-color:#eee;
+                    ">
+                            <option selected>Choose gander...</option>
+                            <option value="male">male</option>
+                            <option value="female">female</option>
+                        </select>
+                      </div>
+                
+                      <div style=" text-align:center !important;width: 100%;" >
+                        {{form.Department}}
+                      </div>
+                    
+                
+
+                        <input type="password" placeholder="Password" class="with-border" name="password" >
+                      
+                
+
+                        <input type="password" placeholder="Confirm Password" class="with-border" name="retype_password" >
+                      
+                
+                
+                <button type="button" class="bg-blue-600 font-semibold p-3 rounded-md text-center text-white w-full" id="registerBtn2" style="cursor: pointer;background-color:#20013E !important;border-radius: 50px;width:150px">
+                    Sign up
+                </button>
+
+               
+                {% comment %} &nbsp; &nbsp; 
+                <br />
+                <br />
+
+                <span style="color:black; font-weight: bold;font-family: 'Inder';font-size:20px;margin-left:-5rem">
+                    Already have an account ? <a href="/login" class="text-primary" style="color:#6F4AA0 !important">Login</a>
+                </span> {% endcomment %}
+                {% comment %} <div class="flex">
+                    <a href="#register" type="button" class="bg-green-600 hover:bg-green-500 hover:text-white font-semibold py-3 px-5 rounded-md text-center text-white mx-auto" uk-toggle style="cursor: pointer;background-color:#20013E !important;border-radius: 25px;">
+                        Create New Account
+                    </a>
+                </div> {% endcomment %}
+            </form> 
+        </div>
+        <div class="form-container sign-in">
+            <form action="" method="post">
+                <h1>LogIn</h1>
+                {% csrf_token %}
+                
+
+                        {% if form.non_field_errors %}
+                            {% for error in form.non_field_errors %}
+                                <p class="alert alert-danger" style="color:red">
+                                    {{ error }}
+                                </p>
+                            {% endfor %}
+                        {% endif %}
+                        {% if message %}
+                            <p class="login-box-msg" style="color: red;">{{ message }}</p>
+                        {% endif %}
+                <br>
+                <input type="text" placeholder="User Name" name="username">
+                <input type="password" placeholder="password" name="password">
+                <a href="/ForgetPassword">Forget Your Password?</a>
+                {% comment %} <button>LogIn</button> {% endcomment %}
+                <button type="submit" class="bg-blue-600 font-semibold p-3 rounded-md text-center text-white w-full"  style="cursor: pointer;background-color:#20013E !important;border-radius: 50px;width:150px">{% trans 'Login' %}</button>
+                {% comment %} <span style="color:black; font-weight: bold;font-family: 'Inder';font-size:18px">
+                    Don't have an account? <a href="/register" class="text-primary" style="color:#6F4AA0 !important">Sing Up</a>
+                </span> {% endcomment %}
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <img src="{% static 'assets/white.png' %}" alt="" style="width:150px;">
+                    <br>
+                    <p style=" font-family: 'Jacques Franconis';font-size:25px !important">welcome to KSA shaild</p>
+                    <br>
+                    <button class="hidden" id="login">Sign In</button>
+                    
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <img src="{% static 'assets/white.png' %}" alt="" style="width:150px;">
+                    <br>
+                    <p style=" font-family: 'Jacques Franconis';font-size:25px !important">Login to access to the system</p>
+                    <br>
+                    <button class="hidden" id="register" >  Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+   
+         
+    
+    <script>
+        const container = document.getElementById('container');
+        const registerBtn = document.getElementById('register');
+        const loginBtn = document.getElementById('login');
+
+        registerBtn.addEventListener('click', () => {
+            container.classList.add("active");
+        });
+
+        loginBtn.addEventListener('click', () => {
+            container.classList.remove("active");
+        });
+    </script>
+
+    <!-- Javascript
+    ================================================== -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    
+    <script type="text/javascript" src="{% static 'assets/js/tippy.all.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/uikit.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/simplebar.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/custom.js' %}"></script>
+    <script type="text/javascript" src="{% static 'assets/js/bootstrap-select.min.js' %}"></script>
+    <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+
+    <script src="{% static 'assets/js/sweetalert2.all.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/sweetalert2.min.css' %}">
+    
+
+    
+    <script>
+        function alert_message(msg="",icon="success",timer=3000){
+            Swal.fire({
+                position:'center',
+                showConfirmButton:false,
+                icon:icon,
+                title:msg,
+                timer: timer,
+            })
+        }
+
+        $(document).on('click', '#loginBtn', function () {
+        
+           $("#error_div").html('')
+           $("#parent_div").hide()
+           var formData = new FormData($("#loginForm")[0]);
+           formData.append('login', true);
+           
+           $.ajax({
+               method: 'post',
+               contentType: false,
+               processData: false,
+               data: formData,
+               beforeSend: function (xhr) {
+                   xhr.setRequestHeader("X-CSRFToken", $('input[name=csrfmiddlewaretoken]').val());
+               },
+               
+               success: function (data) {
+               if (data.status == "1") {
+                  {% comment %} window.location.href = '/'; {% endcomment %}
+                  $("#userAndPass").hide()
+                  $("#logIn").hide()
+                  $("#otpDiv").show()
+                  $("#continueLogin").show()
+               } 
+               else {
+                
+                   $("#error_div").html(data.message)
+                   $("#parent_div").show()
+               }
+                   
+               },
+               error: function (xhr, status, error) {
+                   console.error(error);
+               },
+           });
+        });
+
+        $(document).on('click', '#registerBtn2', function () {
+        
+           
+           var formData = new FormData($("#registerForm")[0]);
+           form = $("#registerForm");
+           formData.append('register', true);
+           
+           $.ajax({
+               method: 'post',
+               url: '/register',
+               contentType: false,
+               processData: false,
+               data: formData,
+               beforeSend: function (xhr) {
+                   xhr.setRequestHeader("X-CSRFToken", $('input[name=csrfmiddlewaretoken]').val());
+               },
+               
+               success: function (data) {
+               if (data.status == "1") {
+                  // window.location.href = '/dashboard/groupbook';
+                  $("#register").toggle()
+                  location.reload();
+                  {% comment %} alert_message(data.msg) {% endcomment %}
+               } 
+               else {
+                
+                form.find('.error').text('').hide();
+
+                // Display form errors under each field dynamically
+                form.find('.error-message').remove();  // Remove existing error messages
+                $.each(data.errors, function (field, error) {
+                    fieldName = $('form[id="registerForm"] [name="' + field + '"]');
+                    var errorMessage = $('<div class="error-message" style="color: red;font-size:11px !important">' + error + '</div>');
+                    fieldName.after(errorMessage);
+                    fieldName.focus();
+                });
+               }
+                   
+               },
+               error: function (xhr, status, error) {
+                   console.error(error);
+               },
+           });
+       });
+   </script>
+     
+ 
+   {% include 'includes/fixed-plugin.html' %}
+ 
+   {% include 'includes/scripts.html' %}
+ 
+   {% include 'includes/scripts-sidebar.html' %}
+   
+   <!-- Specific Page JS goes HERE  -->
+   {% block javascripts %}
+   <script src="{% static 'datatable/js/jquery.dataTables.min.js' %}" ></script>
+     
+ 
+ 
+   {% endblock javascripts %}
+   
+ </body>
+ </html>
+ 

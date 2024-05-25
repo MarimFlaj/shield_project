@@ -1,0 +1,144 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div id="departmentsDiv">
+    <h3> Select The Department </h3>
+    <div class="row">
+      {% for department in data %}
+        <div class="col-lg-3 col-md-6 col-sm-6" style="cursor: pointer;" onclick="myFunction({{ department.number }},'{{ department.name }}')">
+          
+          <div class="card card-stats">
+            <div class="card-footer">
+              <div class="stats">
+              </div>
+            </div>
+            <div class="card-header card-header-warning card-header-icon" style="text-align: center;">
+             
+              <p class="card-category"></p>
+              <h3 class="card-title">{{ department.name }}
+                {% comment %} <small>GB</small> {% endcomment %}
+              </h3>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+              </div>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
+      
+    </div>
+  </div>
+      
+  <div id="detailsDiv" style="display:none">
+    <h3 id="DepartmentName">  </h3>
+
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-sm-6" >
+
+        <div class="card card-stats">
+          <div class="card-header card-header card-header-icon">
+            <div class="card-icon">
+              <i class="fa fa-users" aria-hidden="true"></i>
+            </div>
+            <h3 class="card-title" style="text-align: center;" id="all_users">3
+            </h3>
+            <p class="card-category" style="text-align: center;">All users</p>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6" >
+
+        <div class="card card-stats">
+          <div class="card-header card-header-primary  card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">library_books</i>
+
+            </div>
+            <h3 class="card-title" style="text-align: center;" id="all_training">500
+            </h3>
+            <p class="card-category" style="text-align: center;">Training Packages</p>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6" >
+
+        <div class="card card-stats">
+          <div class="card-header card-header-danger card-header-icon">
+            <div class="card-icon">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </div>
+            <p class="card-category" style="text-align: center;">Total unaware users</p>
+            <h3 class="card-title" style="text-align: center;" id="total_unaware_users">500
+            </h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+            </div>
+          </div>
+          <div class="card-header card-header-primary card-header-icon">
+            <div class="card-icon">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </div>
+            <p class="card-category" style="text-align: center;">Total aware users</p>
+            <h3 class="card-title" style="text-align: center;" id="total_aware_users">500
+            </h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      md.initDashboardPageCharts();
+
+    });
+    
+    function myFunction(id,name) {
+        $("#DepartmentName").html(name + ' Department Report')
+        $("#departmentsDiv").hide()
+        $("#detailsDiv").show()
+        $.ajax({
+          method: "get",
+          data:{"details":true,"id":id},
+      
+          success: function (data) {
+              if (data.status == "1") {
+                $("#all_training").html(data.training_package)
+                $("#all_users").html(data.all_users_len)
+                $("#total_aware_users").html(data.ware_users_len)
+                $("#total_unaware_users").html(data.unaware_users_len)
+              }
+            },
+          })
+
+    }
+      
+  </script>
+
+{% endblock javascripts %}

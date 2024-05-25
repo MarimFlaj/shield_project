@@ -1,0 +1,8 @@
+/project_env
+shield/__pycache__/
+
+shield/migrations/__pycache__/
+shield_project/__pycache__/
+media/uploads/DMK8_lrUIAAKjqs-1068x684.jpg
+/media/
+shield_project/.env
